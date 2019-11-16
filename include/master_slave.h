@@ -70,7 +70,7 @@ struct th_var {
 	char *inbuf, *inbuffr;
 	char *inbufch, *inbufchfr;
 	FILE *inptr,*outptr;
-	unsigned char *img1;
+	unsigned char *img1,*img2,*img3;
 	int ncols, nrows;
 
 };

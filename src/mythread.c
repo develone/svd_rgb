@@ -73,7 +73,7 @@ void *mysvd(void *strptr) {
 			fclose(th0.inptr);
 			((struct FILEs*)strptr)->num_bytes_rd = th0.len1;
 			*/
-			 
+			((struct FILEs*)strptr)->num_bytes_rd = th0.ncols*th0.nrows; 
 			((struct FILEs*)strptr)->status = 1;
 			printf("In mysvd status input file read: %d num_bytes_rd %d\n", ((struct FILEs*)strptr)->status,((struct FILEs*)strptr)->num_bytes_rd);
 			printf("red.pgm th0.len1 = %d \n",th0.len1);
@@ -224,11 +224,18 @@ void *mysvd(void *strptr) {
 			printf("In mysvd status: %d\n", ((struct FILEs*)strptr)->status);
 			printf("In mysvd num_bytes_rd: %d\n", ((struct FILEs*)strptr)->num_bytes_rd);
 			printf("\n");
+			//Now reading for the input image using pgmReadFile
+			th1.img2 = pgmReadFile("red.pgm", NULL, &th1.ncols, &th1.nrows);
+			printf("ncols=%d nrows=%d \n",th1.ncols,th1.nrows);
+			/*
 			th1.inptr = fopen(((struct FILEs*)strptr)->input_file,"r");
 			if (th1.inptr == 0) printf("file not found\n");
-			th1.len1 = fread(th1.inbuf,sizeof(char),th1.m*th1.n,th1.inptr);
-			fclose(th1.inptr);
+			//th1.len1 = fread(th0.inbuf,sizeof(int),th1.m*th1.n,th1.inptr);
+			th0.len1 = fread(th0.inbuf,sizeof(char),th0.m*th1.n,th1.inptr);
+			fclose(th0.inptr);
 			((struct FILEs*)strptr)->num_bytes_rd = th1.len1;
+			*/
+			((struct FILEs*)strptr)->num_bytes_rd = th1.ncols*th1.nrows; 
 			((struct FILEs*)strptr)->status = 1;
 			printf("In mysvd status input file read: %d num_bytes_rd %d\n", ((struct FILEs*)strptr)->status,((struct FILEs*)strptr)->num_bytes_rd);
 			printf("grn.pgm th1.len1 = %d \n",th1.len1);
@@ -297,12 +304,12 @@ void *mysvd(void *strptr) {
 	
 			for(th1.j=0;th1.j<th1.m;th1.j++) {
 				for(th1.i=0;th1.i<th1.n;th1.i++) {
-					th1.ppa[th1.i][th1.j]=(float)*th1.inbuf;
-					*th1.inbufch = (char)*th1.inbuf;
+					th1.ppa[th1.i][th1.j]=(float)*th1.img2;
+					//*th0.inbufch=(char)*th0.inbuf;
 					//printf("%d %d %5.1f \n",th1.i,th1.j,th1.ppa[th1.i][th1.j]);
 					//printf("%d %d %d \n",th1.i,th1.j,*th1.inbufch);
-					th1.inbuf++;
-					th1.inbufch++;
+					th1.img2++;
+					//th0.inbufch++;
 				}
 			}
 			//pgmWriteFile(((struct FILEs*)strptr)->pgm2,th1.inbufchfr,th1.m,th1.n);
@@ -380,11 +387,18 @@ void *mysvd(void *strptr) {
 			printf("In mysvd status: %d\n", ((struct FILEs*)strptr)->status);
 			printf("In mysvd num_bytes_rd: %d\n", ((struct FILEs*)strptr)->num_bytes_rd);
 			printf("\n");
+			//Now reading for the input image using pgmReadFile
+			th2.img3 = pgmReadFile("red.pgm", NULL, &th2.ncols, &th2.nrows);
+			printf("ncols=%d nrows=%d \n",th2.ncols,th2.nrows);
+			/*
 			th2.inptr = fopen(((struct FILEs*)strptr)->input_file,"r");
 			if (th2.inptr == 0) printf("file not found\n");
-			th2.len1 = fread(th2.inbuf,sizeof(char),th2.m*th2.n,th2.inptr);
+			//th2.len1 = fread(th2.inbuf,sizeof(int),th0.m*th2.n,th2.inptr);
+			th2.len1 = fread(th0.inbuf,sizeof(char),th2.m*th0.n,th2.inptr);
 			fclose(th2.inptr);
 			((struct FILEs*)strptr)->num_bytes_rd = th2.len1;
+			*/
+			((struct FILEs*)strptr)->num_bytes_rd = th0.ncols*th0.nrows; 
 			((struct FILEs*)strptr)->status = 1;
 			printf("In mysvd status input file read: %d num_bytes_rd %d\n", ((struct FILEs*)strptr)->status,((struct FILEs*)strptr)->num_bytes_rd);
 			printf("blu.pgm th2.len1 = %d \n",th2.len1);
@@ -453,12 +467,12 @@ void *mysvd(void *strptr) {
 	
 			for(th2.j=0;th2.j<th2.m;th2.j++) {
 				for(th2.i=0;th2.i<th2.n;th2.i++) {
-					th2.ppa[th2.i][th2.j]=(float)*th2.inbuf;
-					*th2.inbufch = (char)*th2.inbuf;
+					th2.ppa[th2.i][th2.j]=(float)*th2.img3;
+					//*th3.inbufch=(char)*th2.inbuf;
 					//printf("%d %d %5.1f \n",th2.i,th2.j,th2.ppa[th2.i][th2.j]);
 					//printf("%d %d %d \n",th2.i,th2.j,*th2.inbufch);
-					th2.inbuf++;
-					th2.inbufch++;
+					th2.img3++;
+					//th2.inbufch++;
 				}
 			}
 			//pgmWriteFile(((struct FILEs*)strptr)->pgm3,th2.inbufchfr,th2.m,th2.n);
