@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../include/klt.h"
+#include "../include/pnmio.h"
 
 int main(){
+	unsigned char *img1;
+	int ncols, nrows;
 	float *pv, **ppv, **ppvfr;
 	int i,j,m,n; 
 	FILE *inptr,*outptr;
@@ -10,8 +14,14 @@ int main(){
 	ppv = (float **)malloc(sizeof(float *) * m + sizeof(float) * m * n);
 	pv = (float *)(ppv + m);
 	ppvfr = ppv;
+	
 	printf("0x%x 0x%x \n",pv,ppv);
-
+	img1 = pgmReadFile("red.pgm", NULL, &ncols, &nrows);
+	for(i = 0; i < 80; i++) {
+		printf("0x%x ",*img1);
+		img1++;
+	}
+	printf("/n");
 	for(i = 0; i < m; i++) {
 		ppv[i] = (pv + m * i);
 		printf("0x%x 0x%x \n",pv,ppv[i]);		 

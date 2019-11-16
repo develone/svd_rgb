@@ -4,6 +4,7 @@
 #include<unistd.h>
 #include "../include/master_slave.h"
 #include "../include/pnmio.h"
+#include "../include/klt.h"
 
 void *hello(void *input) {
     printf("name: %s\n", ((struct args*)input)->name);
@@ -61,12 +62,18 @@ void *mysvd(void *strptr) {
 			printf("In mysvd status: %d\n", ((struct FILEs*)strptr)->status);
 			printf("In mysvd num_bytes_rd: %d\n", ((struct FILEs*)strptr)->num_bytes_rd);
 			printf("\n");
+			//Now reading for the input image using pgmReadFile
+			th0.img1 = pgmReadFile("red.pgm", NULL, &th0.ncols, &th0.nrows);
+			printf("ncols=%d nrows=%d \n",th0.ncols,th0.nrows);
+			/*
 			th0.inptr = fopen(((struct FILEs*)strptr)->input_file,"r");
 			if (th0.inptr == 0) printf("file not found\n");
 			//th0.len1 = fread(th0.inbuf,sizeof(int),th0.m*th0.n,th0.inptr);
 			th0.len1 = fread(th0.inbuf,sizeof(char),th0.m*th0.n,th0.inptr);
 			fclose(th0.inptr);
 			((struct FILEs*)strptr)->num_bytes_rd = th0.len1;
+			*/
+			 
 			((struct FILEs*)strptr)->status = 1;
 			printf("In mysvd status input file read: %d num_bytes_rd %d\n", ((struct FILEs*)strptr)->status,((struct FILEs*)strptr)->num_bytes_rd);
 			printf("red.pgm th0.len1 = %d \n",th0.len1);
@@ -134,12 +141,12 @@ void *mysvd(void *strptr) {
 	
 			for(th0.j=0;th0.j<th0.m;th0.j++) {
 				for(th0.i=0;th0.i<th0.n;th0.i++) {
-					th0.ppa[th0.i][th0.j]=(float)*th0.inbuf;
-					*th0.inbufch=(char)*th0.inbuf;
+					th0.ppa[th0.i][th0.j]=(float)*th0.img1;
+					//*th0.inbufch=(char)*th0.inbuf;
 					//printf("%d %d %5.1f \n",th0.i,th0.j,th0.ppa[th0.i][th0.j]);
 					//printf("%d %d %d \n",th0.i,th0.j,*th0.inbufch);
-					th0.inbuf++;
-					th0.inbufch++;
+					th0.img1++;
+					//th0.inbufch++;
 				}
 			}
 			//pgmWriteFile(((struct FILEs*)strptr)->pgm1,th0.inbufchfr,th0.m,th0.n);
