@@ -225,7 +225,7 @@ void *mysvd(void *strptr) {
 			printf("In mysvd num_bytes_rd: %d\n", ((struct FILEs*)strptr)->num_bytes_rd);
 			printf("\n");
 			//Now reading for the input image using pgmReadFile
-			th1.img2 = pgmReadFile("red.pgm", NULL, &th1.ncols, &th1.nrows);
+			th1.img2 = pgmReadFile("grn.pgm", NULL, &th1.ncols, &th1.nrows);
 			printf("ncols=%d nrows=%d \n",th1.ncols,th1.nrows);
 			/*
 			th1.inptr = fopen(((struct FILEs*)strptr)->input_file,"r");
@@ -388,7 +388,7 @@ void *mysvd(void *strptr) {
 			printf("In mysvd num_bytes_rd: %d\n", ((struct FILEs*)strptr)->num_bytes_rd);
 			printf("\n");
 			//Now reading for the input image using pgmReadFile
-			th2.img3 = pgmReadFile("red.pgm", NULL, &th2.ncols, &th2.nrows);
+			th2.img3 = pgmReadFile("blu.pgm", NULL, &th2.ncols, &th2.nrows);
 			printf("ncols=%d nrows=%d \n",th2.ncols,th2.nrows);
 			/*
 			th2.inptr = fopen(((struct FILEs*)strptr)->input_file,"r");
@@ -398,7 +398,7 @@ void *mysvd(void *strptr) {
 			fclose(th2.inptr);
 			((struct FILEs*)strptr)->num_bytes_rd = th2.len1;
 			*/
-			((struct FILEs*)strptr)->num_bytes_rd = th0.ncols*th0.nrows; 
+			((struct FILEs*)strptr)->num_bytes_rd = th2.ncols*th2.nrows; 
 			((struct FILEs*)strptr)->status = 1;
 			printf("In mysvd status input file read: %d num_bytes_rd %d\n", ((struct FILEs*)strptr)->status,((struct FILEs*)strptr)->num_bytes_rd);
 			printf("blu.pgm th2.len1 = %d \n",th2.len1);
@@ -408,7 +408,7 @@ void *mysvd(void *strptr) {
 			th2.len4 = sizeof(int *) * th2.n + sizeof(int) * th2.m * th2.n;
 			printf("len = %d th2.len2 = %d th2.len3 = %d th2.len4 = %d\n",th2.len1, th2.len2,th2.len3,th2.len4);		
 						if(((struct FILEs*)strptr)->mem_allocated == 0) {
-				printf("len = %d th1.len2 = %d th1.len3 = %d th1.len4 = %d\n",th1.len1, th1.len2,th1.len3,th1.len4);		
+				printf("len = %d th2.len2 = %d th2.len3 = %d th2.len4 = %d\n",th2.len1, th2.len2,th2.len3,th2.len4);		
 				printf("setting up ptrs with malloc\n");
 				th2.ppv = (float **)malloc(th2.len1);
 				th2.ppvfr = th2.ppv;
@@ -488,7 +488,7 @@ void *mysvd(void *strptr) {
 			//result = disp(th2.ppa,th2.m,th2.n);
 			printf("Singular Values\n");
 			//clear the S diagonal matrix
-			for(th2.j=0;th2.j<th0.m;th2.j++) {
+			for(th2.j=0;th2.j<th2.m;th2.j++) {
 				for(th2.i=0;th2.i<th2.n;th2.i++) {
 					th2.ppds[th2.i][th2.j] = 0;
 				}	
