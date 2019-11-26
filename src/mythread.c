@@ -63,7 +63,7 @@ void *mysvd(void *strptr) {
 			printf("In mysvd num_bytes_rd: %d\n", ((struct FILEs*)strptr)->num_bytes_rd);
 			printf("\n");
 			//Now reading for the input image using pgmReadFile
-			th0.img1 = pgmReadFile("red.pgm", NULL, &th0.ncols, &th0.nrows);
+			th0.img1 = pgmReadFile(((struct FILEs*)strptr)->input_file, NULL, &th0.ncols, &th0.nrows);
 			printf("ncols=%d nrows=%d \n",th0.ncols,th0.nrows);
 			/*
 			th0.inptr = fopen(((struct FILEs*)strptr)->input_file,"r");
@@ -225,7 +225,7 @@ void *mysvd(void *strptr) {
 			printf("In mysvd num_bytes_rd: %d\n", ((struct FILEs*)strptr)->num_bytes_rd);
 			printf("\n");
 			//Now reading for the input image using pgmReadFile
-			th1.img2 = pgmReadFile("grn.pgm", NULL, &th1.ncols, &th1.nrows);
+			th1.img2 = pgmReadFile(((struct FILEs*)strptr)->input_file, NULL, &th1.ncols, &th1.nrows);
 			printf("ncols=%d nrows=%d \n",th1.ncols,th1.nrows);
 			/*
 			th1.inptr = fopen(((struct FILEs*)strptr)->input_file,"r");
@@ -388,7 +388,7 @@ void *mysvd(void *strptr) {
 			printf("In mysvd num_bytes_rd: %d\n", ((struct FILEs*)strptr)->num_bytes_rd);
 			printf("\n");
 			//Now reading for the input image using pgmReadFile
-			th2.img3 = pgmReadFile("blu.pgm", NULL, &th2.ncols, &th2.nrows);
+			th2.img3 = pgmReadFile(((struct FILEs*)strptr)->input_file, NULL, &th2.ncols, &th2.nrows);
 			printf("ncols=%d nrows=%d \n",th2.ncols,th2.nrows);
 			/*
 			th2.inptr = fopen(((struct FILEs*)strptr)->input_file,"r");
