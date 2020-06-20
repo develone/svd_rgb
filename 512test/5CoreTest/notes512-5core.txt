@@ -1,0 +1,599 @@
+Ultibo test with 256 x 256 images
+
+Retrieve the source code 
+
+git clone http://github.com/develone/Ultibo_Projects.git
+
+Ultibo test with 256 x 256 images
+Compile the libsvd.a
+
+~/Ultibo_Projects/th_svd/RPi2 $ ./buildlib.sh
+-rw-r--r-- 1 devel devel 33014 Jun 20 09:35 libsvd.a
+
+Compile the project using Lazarus 
+
+~/Ultibo_Projects/th_svd/RPi2 $ svd_FS_RPi2.lpi
+
+-rwxr-xr-x 1 devel devel 2946512 Jun 20 09:36 kernel7.img
+
+~/svd_rgb/256Ultibotest $ lazarus.png shows Lazarus IDE (Ultibo Edition) successfully
+compile the kernel7.img
+
+Transfer kernel7.img to a Ultibo System.
+
+~/Ultibo_Projects/th_svd/RPi2 $ tftp 192.168.1.69 < cmdstftp
+tftp> tftp> Sent 2946512 bytes in 8.7 seconds
+
+In 24.64 sec the results are ready.
+
+~/Ultibo_Projects/th_svd/RPi2 $ ./getsvdresults.sh 
+retrieve svd results
+tftp> tftp> Error code 5: 50673
+Received 1024 bytes in 5.0 seconds
+tftp> Error code 5: 47842
+Received 1024 bytes in 5.0 seconds
+tftp> Error code 5: 37854
+Received 1024 bytes in 5.0 seconds
+tftp> tftp> Error code 5: 51532
+Received 262144 bytes in 5.8 seconds
+tftp> Error code 5: 36587
+Received 262144 bytes in 5.8 seconds
+tftp> Error code 5: 53230
+Received 262144 bytes in 5.8 seconds
+tftp> tftp> done
+
+~/Ultibo_Projects/th_svd/RPi2 $ octave 
+GNU Octave, version 4.4.1
+Copyright (C) 2018 John W. Eaton and others.
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; not even for MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  For details, type 'warranty'.
+
+Octave was configured for "arm-unknown-linux-gnueabihf".
+
+Additional information about Octave is available at https://www.octave.org.
+
+Please contribute if you find this software useful.
+For more information, visit https://www.octave.org/get-involved.html
+
+Read https://www.octave.org/bugs.html to learn how to submit bug reports.
+For information about changes from previous versions, type 'news'.
+
+octave:1> disp_S
+~/svd_rgb/256Ultibotest $ test-c.png displays the 256 x 256 results in the same
+order as  ~/svd_rgb/512test/5CoreTest $ test-b.png.
+
+~/svd_rgb/256Ultibotest $ remoteshell.png shows how get a a remote shell on 
+the Ultibo System.
+
+~/svd_rgb/256Ultibotest $ remoteshell-a.png displays the files on 
+the Ultibo System.
+
+~/svd_rgb/256Ultibotest $ webserver.png show the Raspberry Pi OS connecting 
+to the webserver on the Ultibo System.
+
+1 core per RPi 
+3 RPi4 4GB & 2 RPi3B+ The 2 RPi3B+ took the majority of time to perform the 
+3 thread task master called by mpich hellow.
+This is observed in test-a.png
+mypi3-16, mypi3-18, and mypi3-20 the RPi4 4GB completed verry quick.
+This is observed in test.png
+The image test-b.png provides the images used as inputs Figure 1, Figure 3,
+and Figure 5.  Octave was used to perform the SVD on the inputs. Figure 2,
+Figure 6 are the Octave computed results.  
+Figure 8, Figure 10, and Figure 12 were computed by master running a thread 
+for each image.   Figure 7, Figure 9, and Figure 11 are the first 25 Singular 
+Values computer by the threaded program master. 
+real	6m30.653s
+user	1m6.109s
+sys	0m0.282s
+time mpiexec -f machinefile -n 5 mpich-3.3.2/examples/hellow
+Hello world from process 1 of 5
+Hello world from process 3 of 5
+Hello world from process 0 of 5
+Hello world from process 4 of 5
+/home/devel
+Hello world from process 2 of 5
+/home/devel
+/home/devel
+/home/devel
+/home/devel
+In main red.pgm Sred.bin rcred.bin 0 0
+In main grn.pgm Sgrn.bin rcgrn.bin 0 0
+In main blu.pgm Sblu.bin rcblu.bin 0 0
+name: Allen
+age: 20
+0x0
+
+ 1st thread processing th_id[0] 0xb6d25460
+In mysvd input_file: red.pgm
+In mysvd first_output: Sred.bin
+In mysvd second_output: rcred.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+red.pgm th0.len1 = 0 
+len = 1050624 th0.len2 = 1050624 th0.len3 = 1050624 th0.len4 = 1050624
+setting up ptrs with malloc
+pa 0xb603a808 ppa 0xb603a008  
+pv = 0xb623c808 ppv = 0xb623c008 
+pvt = 0xb5e38808 ppvt = 0xb5e38008 
+pds = 0xb5f39808 ppds = 0xb5f39008 
+puds = 0xb613b808 ppuds = 0xb613b008 
+pudsvt = 0xb5c36808 ppudsvt = 0xb5c36008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0xb64005b8 
+# of data written 0x40000 
+
+ 2nd thread processing th_id[1] 0xb6d25460
+In mysvd input_file: grn.pgm
+In mysvd first_output: Sgrn.bin
+In mysvd second_output: rcgrn.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+grn.pgm th1.len1 = 0 
+len = 1050624 th1.len2 = 1050624 th1.len3 = 1050624 th1.len4 = 1050624
+len = 1050624 th1.len2 = 1050624 th1.len3 = 1050624 th1.len4 = 1050624
+setting up ptrs with malloc
+pa 0xb5efd808 ppa 0xb5efd008  
+pv = 0xb60ff808 ppv = 0xb60ff008 
+pvt = 0xb5cfb808 ppvt = 0xb5cfb008 
+pds = 0xb5dfc808 ppds = 0xb5dfc008 
+puds = 0xb5ffe808 ppuds = 0xb5ffe008 
+pudsvt = 0xb5af9808 ppudsvt = 0xb5af9008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0xb64c05d0 
+# of data written 0x40000 
+
+ 3rd thread processing th_id[2] 0xb6d25460
+In mysvd input_file: blu.pgm
+In mysvd first_output: Sblu.bin
+In mysvd second_output: rcblu.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+blu.pgm th2.len1 = 0 
+len = 1050624 th2.len2 = 1050624 th2.len3 = 1050624 th2.len4 = 1050624
+len = 1050624 th2.len2 = 1050624 th2.len3 = 1050624 th2.len4 = 1050624
+setting up ptrs with malloc
+pa 0xb5bfa808 ppa 0xb5bfa008  
+pv = 0xb5eff808 ppv = 0xb5eff008 
+pvt = 0xb59f8808 ppvt = 0xb59f8008 
+pds = 0xb5af9808 ppds = 0xb5af9008 
+puds = 0xb5cfb808 ppuds = 0xb5cfb008 
+pudsvt = 0xb57f6808 ppudsvt = 0xb57f6008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0xb64c05d0 
+# of data written 0x40000 
+all threads joined
+In main status 4 num_bytes_rd 262144 
+In main status 4 num_bytes_rd 262144 
+In main status 4 num_bytes_rd 262144 
+In main red.pgm Sred.bin rcred.bin 0 0
+In main grn.pgm Sgrn.bin rcgrn.bin 0 0
+In main blu.pgm Sblu.bin rcblu.bin 0 0
+name: Allen
+age: 20
+0x0
+
+ 1st thread processing th_id[0] 0xb6d90460
+In mysvd input_file: red.pgm
+In mysvd first_output: Sred.bin
+In mysvd second_output: rcred.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+red.pgm th0.len1 = 0 
+len = 1050624 th0.len2 = 1050624 th0.len3 = 1050624 th0.len4 = 1050624
+setting up ptrs with malloc
+pa 0xb60bc808 ppa 0xb60bc008  
+pv = 0xb62be808 ppv = 0xb62be008 
+pvt = 0xb5eba808 ppvt = 0xb5eba008 
+pds = 0xb5fbb808 ppds = 0xb5fbb008 
+puds = 0xb61bd808 ppuds = 0xb61bd008 
+pudsvt = 0xb5cb8808 ppudsvt = 0xb5cb8008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0xb64005b8 
+# of data written 0x40000 
+
+ 2nd thread processing th_id[1] 0xb6d90460
+In mysvd input_file: grn.pgm
+In mysvd first_output: Sgrn.bin
+In mysvd second_output: rcgrn.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+grn.pgm th1.len1 = 0 
+len = 1050624 th1.len2 = 1050624 th1.len3 = 1050624 th1.len4 = 1050624
+len = 1050624 th1.len2 = 1050624 th1.len3 = 1050624 th1.len4 = 1050624
+setting up ptrs with malloc
+pa 0xb5efd808 ppa 0xb5efd008  
+pv = 0xb60ff808 ppv = 0xb60ff008 
+pvt = 0xb5cfb808 ppvt = 0xb5cfb008 
+pds = 0xb5dfc808 ppds = 0xb5dfc008 
+puds = 0xb5ffe808 ppuds = 0xb5ffe008 
+pudsvt = 0xb5af9808 ppudsvt = 0xb5af9008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0xb64c05d0 
+# of data written 0x40000 
+
+ 3rd thread processing th_id[2] 0xb6d90460
+In mysvd input_file: blu.pgm
+In mysvd first_output: Sblu.bin
+In mysvd second_output: rcblu.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+blu.pgm th2.len1 = 0 
+len = 1050624 th2.len2 = 1050624 th2.len3 = 1050624 th2.len4 = 1050624
+len = 1050624 th2.len2 = 1050624 th2.len3 = 1050624 th2.len4 = 1050624
+setting up ptrs with malloc
+pa 0xb5bfa808 ppa 0xb5bfa008  
+pv = 0xb5eff808 ppv = 0xb5eff008 
+pvt = 0xb59f8808 ppvt = 0xb59f8008 
+pds = 0xb5af9808 ppds = 0xb5af9008 
+puds = 0xb5cfb808 ppuds = 0xb5cfb008 
+pudsvt = 0xb57f6808 ppudsvt = 0xb57f6008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0xb64c05d0 
+# of data written 0x40000 
+all threads joined
+In main status 4 num_bytes_rd 262144 
+In main status 4 num_bytes_rd 262144 
+In main status 4 num_bytes_rd 262144 
+In main red.pgm Sred.bin rcred.bin 0 0
+In main grn.pgm Sgrn.bin rcgrn.bin 0 0
+In main blu.pgm Sblu.bin rcblu.bin 0 0
+name: Allen
+age: 20
+0x0
+
+ 1st thread processing th_id[0] 0xb6d81460
+In mysvd input_file: red.pgm
+In mysvd first_output: Sred.bin
+In mysvd second_output: rcred.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+red.pgm th0.len1 = 0 
+len = 1050624 th0.len2 = 1050624 th0.len3 = 1050624 th0.len4 = 1050624
+setting up ptrs with malloc
+pa 0xb607b808 ppa 0xb607b008  
+pv = 0xb627d808 ppv = 0xb627d008 
+pvt = 0xb5e79808 ppvt = 0xb5e79008 
+pds = 0xb5f7a808 ppds = 0xb5f7a008 
+puds = 0xb617c808 ppuds = 0xb617c008 
+pudsvt = 0xb5c77808 ppudsvt = 0xb5c77008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0xb64005b8 
+# of data written 0x40000 
+
+ 2nd thread processing th_id[1] 0xb6d81460
+In mysvd input_file: grn.pgm
+In mysvd first_output: Sgrn.bin
+In mysvd second_output: rcgrn.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+grn.pgm th1.len1 = 0 
+len = 1050624 th1.len2 = 1050624 th1.len3 = 1050624 th1.len4 = 1050624
+len = 1050624 th1.len2 = 1050624 th1.len3 = 1050624 th1.len4 = 1050624
+setting up ptrs with malloc
+pa 0xb5efd808 ppa 0xb5efd008  
+pv = 0xb60ff808 ppv = 0xb60ff008 
+pvt = 0xb5cfb808 ppvt = 0xb5cfb008 
+pds = 0xb5dfc808 ppds = 0xb5dfc008 
+puds = 0xb5ffe808 ppuds = 0xb5ffe008 
+pudsvt = 0xb5af9808 ppudsvt = 0xb5af9008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0xb64c05d0 
+# of data written 0x40000 
+
+ 3rd thread processing th_id[2] 0xb6d81460
+In mysvd input_file: blu.pgm
+In mysvd first_output: Sblu.bin
+In mysvd second_output: rcblu.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+blu.pgm th2.len1 = 0 
+len = 1050624 th2.len2 = 1050624 th2.len3 = 1050624 th2.len4 = 1050624
+len = 1050624 th2.len2 = 1050624 th2.len3 = 1050624 th2.len4 = 1050624
+setting up ptrs with malloc
+pa 0xb5bfa808 ppa 0xb5bfa008  
+pv = 0xb5eff808 ppv = 0xb5eff008 
+pvt = 0xb59f8808 ppvt = 0xb59f8008 
+pds = 0xb5af9808 ppds = 0xb5af9008 
+puds = 0xb5cfb808 ppuds = 0xb5cfb008 
+pudsvt = 0xb57f6808 ppudsvt = 0xb57f6008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0xb64c05d0 
+# of data written 0x40000 
+all threads joined
+In main status 4 num_bytes_rd 262144 
+In main status 4 num_bytes_rd 262144 
+In main status 4 num_bytes_rd 262144 
+In main red.pgm Sred.bin rcred.bin 0 0
+In main grn.pgm Sgrn.bin rcgrn.bin 0 0
+In main blu.pgm Sblu.bin rcblu.bin 0 0
+name: Allen
+age: 20
+0x0
+
+ 1st thread processing th_id[0] 0x76d6a460
+In mysvd input_file: red.pgm
+In mysvd first_output: Sred.bin
+In mysvd second_output: rcred.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+red.pgm th0.len1 = 0 
+len = 1050624 th0.len2 = 1050624 th0.len3 = 1050624 th0.len4 = 1050624
+setting up ptrs with malloc
+pa 0x7607b808 ppa 0x7607b008  
+pv = 0x7627d808 ppv = 0x7627d008 
+pvt = 0x75e79808 ppvt = 0x75e79008 
+pds = 0x75f7a808 ppds = 0x75f7a008 
+puds = 0x7617c808 ppuds = 0x7617c008 
+pudsvt = 0x75c77808 ppudsvt = 0x75c77008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0x764005b8 
+# of data written 0x40000 
+
+ 2nd thread processing th_id[1] 0x76d6a460
+In mysvd input_file: grn.pgm
+In mysvd first_output: Sgrn.bin
+In mysvd second_output: rcgrn.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+grn.pgm th1.len1 = 0 
+len = 1050624 th1.len2 = 1050624 th1.len3 = 1050624 th1.len4 = 1050624
+len = 1050624 th1.len2 = 1050624 th1.len3 = 1050624 th1.len4 = 1050624
+setting up ptrs with malloc
+pa 0x75efd808 ppa 0x75efd008  
+pv = 0x760ff808 ppv = 0x760ff008 
+pvt = 0x75cfb808 ppvt = 0x75cfb008 
+pds = 0x75dfc808 ppds = 0x75dfc008 
+puds = 0x75ffe808 ppuds = 0x75ffe008 
+pudsvt = 0x75af9808 ppudsvt = 0x75af9008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0x764c05d0 
+# of data written 0x40000 
+
+ 3rd thread processing th_id[2] 0x76d6a460
+In mysvd input_file: blu.pgm
+In mysvd first_output: Sblu.bin
+In mysvd second_output: rcblu.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+blu.pgm th2.len1 = 0 
+len = 1050624 th2.len2 = 1050624 th2.len3 = 1050624 th2.len4 = 1050624
+len = 1050624 th2.len2 = 1050624 th2.len3 = 1050624 th2.len4 = 1050624
+setting up ptrs with malloc
+pa 0x75bfa808 ppa 0x75bfa008  
+pv = 0x75eff808 ppv = 0x75eff008 
+pvt = 0x759f8808 ppvt = 0x759f8008 
+pds = 0x75af9808 ppds = 0x75af9008 
+puds = 0x75cfb808 ppuds = 0x75cfb008 
+pudsvt = 0x757f6808 ppudsvt = 0x757f6008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0x764c05d0 
+# of data written 0x40000 
+all threads joined
+In main status 4 num_bytes_rd 262144 
+In main status 4 num_bytes_rd 262144 
+In main status 4 num_bytes_rd 262144 
+In main red.pgm Sred.bin rcred.bin 0 0
+In main grn.pgm Sgrn.bin rcgrn.bin 0 0
+In main blu.pgm Sblu.bin rcblu.bin 0 0
+name: Allen
+age: 20
+0x0
+
+ 1st thread processing th_id[0] 0x76cff460
+In mysvd input_file: red.pgm
+In mysvd first_output: Sred.bin
+In mysvd second_output: rcred.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+red.pgm th0.len1 = 0 
+len = 1050624 th0.len2 = 1050624 th0.len3 = 1050624 th0.len4 = 1050624
+setting up ptrs with malloc
+pa 0x75ffd808 ppa 0x75ffd008  
+pv = 0x761ff808 ppv = 0x761ff008 
+pvt = 0x75dfb808 ppvt = 0x75dfb008 
+pds = 0x75efc808 ppds = 0x75efc008 
+puds = 0x760fe808 ppuds = 0x760fe008 
+pudsvt = 0x75bf9808 ppudsvt = 0x75bf9008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0x763005b8 
+# of data written 0x40000 
+
+ 2nd thread processing th_id[1] 0x76cff460
+In mysvd input_file: grn.pgm
+In mysvd first_output: Sgrn.bin
+In mysvd second_output: rcgrn.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+grn.pgm th1.len1 = 0 
+len = 1050624 th1.len2 = 1050624 th1.len3 = 1050624 th1.len4 = 1050624
+len = 1050624 th1.len2 = 1050624 th1.len3 = 1050624 th1.len4 = 1050624
+setting up ptrs with malloc
+pa 0x75dfd808 ppa 0x75dfd008  
+pv = 0x75fff808 ppv = 0x75fff008 
+pvt = 0x75bfb808 ppvt = 0x75bfb008 
+pds = 0x75cfc808 ppds = 0x75cfc008 
+puds = 0x75efe808 ppuds = 0x75efe008 
+pudsvt = 0x759f9808 ppudsvt = 0x759f9008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0x763c05d0 
+# of data written 0x40000 
+
+ 3rd thread processing th_id[2] 0x76cff460
+In mysvd input_file: blu.pgm
+In mysvd first_output: Sblu.bin
+In mysvd second_output: rcblu.bin
+In mysvd status: 0
+In mysvd num_bytes_rd: 0
+
+ncols=512 nrows=512 
+In mysvd status input file read: 1 num_bytes_rd 262144
+blu.pgm th2.len1 = 0 
+len = 1050624 th2.len2 = 1050624 th2.len3 = 1050624 th2.len4 = 1050624
+len = 1050624 th2.len2 = 1050624 th2.len3 = 1050624 th2.len4 = 1050624
+setting up ptrs with malloc
+pa 0x75afa808 ppa 0x75afa008  
+pv = 0x75dff808 ppv = 0x75dff008 
+pvt = 0x758f8808 ppvt = 0x758f8008 
+pds = 0x759f9808 ppds = 0x759f9008 
+puds = 0x75bfb808 ppuds = 0x75bfb008 
+pudsvt = 0x756f6808 ppudsvt = 0x756f6008 
+U row = 512 col = 512 
+Singular Values
+V row = 512 col = 512 
+V' row = 512 col = 512 
+Call mul u * s  
+UDS row = 512 col = 512 
+Call mul u * ds * vt 
+USDVT row = 512 col = 512 
+ps converted from float to int 0x763c05d0 
+# of data written 0x40000 
+all threads joined
+In main status 4 num_bytes_rd 262144 
+In main status 4 num_bytes_rd 262144 
+In main status 4 num_bytes_rd 262144 
+
+real	6m30.653s
+user	1m6.109s
+sys	0m0.282s
