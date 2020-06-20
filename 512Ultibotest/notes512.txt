@@ -1,0 +1,58 @@
+diffuse include/master_slave.h ~/svd_rgb/512test/include/master_slave.h
+
+diffuse mythread.c ~/svd_rgb/512test/src/mythread.c
+
+./buildlib.sh 
+Compiling example ultibo_th_svd
+
+~/svd_rgb/512test $ tftp 192.168.1.69
+tftp> binary
+tftp> put *.pgm
+tftp: *.pgm: No such file or directory
+tftp> put red.pgm
+Sent 262204 bytes in 0.7 seconds
+tftp> put grn.pgm
+Sent 262204 bytes in 0.5 seconds
+tftp> put blu.pgm
+Sent 262204 bytes in 0.5 seconds
+tftp> quit
+
+5:24.25 sec
+./getsvdresults.sh 
+retrieve svd results
+tftp> tftp> Error code 5: 57509
+Received 2048 bytes in 5.0 seconds
+tftp> Error code 5: 59282
+Received 2048 bytes in 5.0 seconds
+tftp> Error code 5: 57020
+Received 2048 bytes in 5.1 seconds
+tftp> tftp> Error code 5: 39753
+Received 1048576 bytes in 8.4 seconds
+tftp> Error code 5: 58850
+Received 1048576 bytes in 8.3 seconds
+tftp> Error code 5: 43096
+Received 1048576 bytes in 8.4 seconds
+tftp> tftp> done
+
+~/Ultibo_Projects/th_svd/RPi2 $ cp ~/svd_rgb/512test/src/disp_S.m .
+
+~/Ultibo_Projects/th_svd/RPi2 $ cp ~/svd_rgb/512test/*.pgm .
+
+~/Ultibo_Projects/th_svd/RPi2 $ octave
+GNU Octave, version 4.4.1
+Copyright (C) 2018 John W. Eaton and others.
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; not even for MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  For details, type 'warranty'.
+
+Octave was configured for "arm-unknown-linux-gnueabihf".
+
+Additional information about Octave is available at https://www.octave.org.
+
+Please contribute if you find this software useful.
+For more information, visit https://www.octave.org/get-involved.html
+
+Read https://www.octave.org/bugs.html to learn how to submit bug reports.
+For information about changes from previous versions, type 'news'.
+
+octave:1> disp_S
