@@ -53,7 +53,7 @@ struct FILEs {
 };
 
 struct th_var {
-	float w[256], *pw;
+	float w[512], *pw;
 	int m,n,i,j,p,q,result,len1,len2,len3,len4;
 	//Several of the arrays use 2 pointers to allocate memory. 
 	//9 x 8 arrays
