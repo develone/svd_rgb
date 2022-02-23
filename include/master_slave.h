@@ -1,5 +1,5 @@
 #define FLOAT_TO_INT(x) ((x)>=0?(int)((x)+0.5):(int)((x)-0.5))
-pthread_t th_id[2];
+ 
 
  
 
@@ -75,6 +75,4 @@ struct th_var {
 
 };
 
-struct th_var th0;
-struct th_var th1;
-struct th_var th2;
+ 

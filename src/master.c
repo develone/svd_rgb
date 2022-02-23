@@ -3,8 +3,12 @@
 #include <stdlib.h>
 #include<unistd.h>
 #include "../include/master_slave.h"
-
-
+pthread_t th_id[2];
+/*
+struct th_var th0;
+struct th_var th1;
+struct th_var th2;
+*/
 #ifdef Ultibo
 void test_svd() {
 #else

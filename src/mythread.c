@@ -5,13 +5,16 @@
 #include "../include/master_slave.h"
 #include "../include/pnmio.h"
 #include "../include/klt.h"
-
+struct th_var th0;
+struct th_var th1;
+struct th_var th2;
 void *hello(void *input) {
     printf("name: %s\n", ((struct args*)input)->name);
     printf("age: %d\n", ((struct args*)input)->age);
 }
 
 void *mysvd(void *strptr) {
+	pthread_t th_id[2];
 	pthread_t id = pthread_self();
 	int sw;
 	if(pthread_equal(id,th_id[0])!=0) {
